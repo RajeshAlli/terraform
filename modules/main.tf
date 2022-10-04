@@ -22,7 +22,7 @@ module "vpc" {
   name = "my-vpc"
   cidr = "172.31.0.0/16"
 
-  azs             = ["${local.region}a", "${local.region}b"]
+  azs             = ["eu-west-1a", "eu-west-1b"]
   private_subnets = ["172.31.0.0/24", "172.31.0.18/24"]
   public_subnets  = ["172.31.0.16/24", "172.31.0.48/24"]
 
