@@ -32,8 +32,8 @@ resource "aws_instance" "app_server-pub" {
   tags = merge(
     local.tags,
     {
-      #    Name = "pub-ec2-${count.index}"
-      Name="pub-ec2"
+      #    Name = "vatlent-${count.index}"
+      Name="vtalent"
       name= "devops-raju"
     })
 }
