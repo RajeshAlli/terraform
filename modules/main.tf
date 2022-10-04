@@ -23,8 +23,8 @@ module "vpc" {
   cidr = "172.31.0.0/18"
 
   azs             = ["us-east-1a", "us-east-1b"]
-  private_subnets = ["172.31.1.0/28", "172.31.2.0/28"]
-  public_subnets  = ["172.31.101.0/28", "172.31.102.0/28"]
+  private_subnets = ["172.31.1.0/24", "172.31.2.0/24"]
+  public_subnets  = ["172.31.101.0/24", "172.31.102.0/24"]
 
   enable_nat_gateway = true
   enable_vpn_gateway = true
