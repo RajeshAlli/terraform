@@ -20,7 +20,7 @@ module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
   name = "my-vpc"
-  cidr = "192.0.0.0/24"
+  cidr = "192.0.0.0/25"
 
   azs             = ["us-east-1a", "us-east-1b"]
   private_subnets = ["192.0.0.0/25", "192.0.0.16/25"]
