@@ -122,7 +122,7 @@ resource "aws_instance" "efsinstance" {
     instance_type = "t2.micro"
     subnet_id = aws_subnet.subnet[0].id
     associate_public_ip_address= true
-    vpc_security_group_ids = [ aws_security_group.ec2.id ]
+    vpc_security_group_ids = [ aws_vpc.my-vpc-efs.id ]
     key_name="efs"
     tags= {
         Name = "efsinstance"
