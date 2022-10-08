@@ -9,14 +9,14 @@ resource "aws_vpc" "vpc" {
    }
  }
 
-## resource "aws_internet_gateway" "internet_gateway" {
+ resource "aws_internet_gateway" "internet_gateway" {
   vpc_id = aws_vpc.vpc.id
   tags = {
     Name = "Internet_Gateway"
   }
 }
  
- ## resource "aws_subnet" "subnet" {
+  resource "aws_subnet" "subnet" {
    count=length(data.aws_availability_zones.available.names)
    cidr_block = cidrsubnet(aws_vpc.vpc.cidr_block, 8, count.index)
    vpc_id = aws_vpc.vpc.id
@@ -24,7 +24,7 @@ resource "aws_vpc" "vpc" {
  }
 
 
-## resource "aws_route_table" "public" {
+ resource "aws_route_table" "public" {
   vpc_id = aws_vpc.vpc.id
   route {
     cidr_block = "0.0.0.0/0"
@@ -37,7 +37,7 @@ resource "aws_vpc" "vpc" {
   depends_on = [aws_internet_gateway.internet_gateway]
 }
 
-## resource "aws_route_table_association" "vpc_public_assoc" {
+ resource "aws_route_table_association" "vpc_public_assoc" {
   count          = length(data.aws_availability_zones.available.names)
   subnet_id      = aws_subnet.subnet.*.id[count.index]
   route_table_id = aws_route_table.public.id
