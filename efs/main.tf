@@ -120,7 +120,7 @@ resource "aws_security_group" "allow-sg-pvt" {
 resource "aws_instance" "efsinstance" {
     ami = "ami-087c17d1fe0178315"
     instance_type = "t2.micro"
-    subnet_id = aws_subnet.subnet[0].id
+    subnet_id = aws_subnet.public-sub-efs.id.private-sub-efs.id
     associate_public_ip_address= true
     vpc_security_group_ids = [ aws_vpc.my-vpc-efs.id ]
     key_name="efs"
