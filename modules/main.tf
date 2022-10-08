@@ -24,7 +24,7 @@ module "vpc" {
 
   azs             = ["us-east-1a", "us-east-1b"]
   private_subnets = ["192.0.0.0/25", "192.0.0.16/25"]
-  public_subnets  = ["192.0.0.32/25", "192.0.0.128/25"]
+  public_subnets  = ["192.0.0.0/25", "192.0.0.128/25"]
 
   enable_nat_gateway = true
   enable_vpn_gateway = true
