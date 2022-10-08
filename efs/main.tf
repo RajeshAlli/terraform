@@ -45,7 +45,6 @@ resource "aws_subnet" "public-sub" {
   enable_resource_name_dns_a_record_on_launch="true"
   map_public_ip_on_launch = "true"
   tags = merge(
-    local.tags,
     {
       Name = "public-sub-efs"
     })
@@ -58,7 +57,6 @@ resource "aws_subnet" "private-sub" {
   availability_zone = "us-east-1b"
   enable_resource_name_dns_a_record_on_launch="true"
   tags = merge(
-    local.tags,
     {
       Name = "private-sub-efs"
     })
