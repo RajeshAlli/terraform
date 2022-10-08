@@ -20,11 +20,11 @@ module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
   name = "module-vpc"
-  cidr = "192.0.0.0/24"
+  cidr = "192.0.0.0/25"
 
   azs             = ["us-east-1a", "us-east-1b"]
-  private_subnets = ["192.0.0.0/25", "192.0.0.0/25"]
-  public_subnets  = ["192.0.0.128/25", "192.0.0.128/25"]
+  private_subnets = ["192.0.0.0/25", "192.0.0.16/25"]
+  public_subnets  = ["192.0.0.32/25", "192.0.0.48/25"]
 
   enable_nat_gateway = true
   enable_vpn_gateway = true
