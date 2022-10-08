@@ -40,7 +40,7 @@ resource "aws_vpc" "my_vpc-efs" {
 
 resource "aws_subnet" "public-sub" {
   vpc_id     = aws_vpc.my-vpc-efs.id
-  cidr_block = "172.31.0.0/25"
+  cidr_block = "172.31.0.0/28"
   availability_zone = "us-east-1a"
   enable_resource_name_dns_a_record_on_launch="true"
   map_public_ip_on_launch = "true"
@@ -54,7 +54,7 @@ resource "aws_subnet" "public-sub" {
 
 resource "aws_subnet" "private-sub" {
   vpc_id     = aws_vpc.my-vpc-efs.id
-  cidr_block = "172.31.0.128/25"
+  cidr_block = "172.31.0.18/28"
   availability_zone = "us-east-1b"
   enable_resource_name_dns_a_record_on_launch="true"
   tags = merge(
