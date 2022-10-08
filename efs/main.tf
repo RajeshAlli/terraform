@@ -24,18 +24,95 @@ resource "aws_efs_file_system" "efs" {
    }
  }
 
- resource "aws_launch_configuration" "sample" {
-  image_id          = "ami-04afe279c8bff9ed8"
-  instance_type = "t2.micro"
-  security_groups = [
-    aws_security_group.efs.id,
-  ]
+# creating vpc my-vpc-efs
 
-  user_data = <<-EOF
-              #!/bin/bash
-              mount -t nfs -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport ${module.efs_mount.file_system_dns_name}:/ /your/mount/point/
-              EOF
-  lifecycle {
-    create_before_destroy = true
+resource "aws_vpc" "my_vpc-efs" {
+  cidr_block = "172.31.0.0/16"
+  instance_tenancy = "default"
+  enable_dns_hostnames = "true"
+  tags = {
+    Name = "my-vpc-efs"
   }
+}
+
+#### aws subnets public-sub and private-sub
+
+
+resource "aws_subnet" "public-sub" {
+  vpc_id     = aws_vpc.my-vpc-efs.id
+  cidr_block = "172.31.0.0/28"
+  availability_zone = "us-east-1a"
+  enable_resource_name_dns_a_record_on_launch="true"
+  map_public_ip_on_launch = "true"
+  tags = merge(
+    local.tags,
+    {
+      Name = "public-sub-efs"
+    })
+}
+
+
+resource "aws_subnet" "private-sub" {
+  vpc_id     = aws_vpc.my-vpc-efs.id
+  cidr_block = "172.31.0.16/28"
+  availability_zone = "us-east-1b"
+  enable_resource_name_dns_a_record_on_launch="true"
+  tags = merge(
+    local.tags,
+    {
+      Name = "private-sub-efs"
+    })
+}
+
+### aws security groups
+
+
+resource "aws_security_group" "allow-sg-pub" {
+  name        = "allow-sg-pub"
+  description = "Allow SSH inbound connections"
+  vpc_id      = aws_vpc.my-vpc-efs.id
+
+  ingress {
+    description = "Allowing all ports"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  tags = {
+    Name = "allow_sg-pub-efs"
+  }
+
+}
+
+resource "aws_security_group" "allow-sg-pvt" {
+  name        = "allow-sg-pvt"
+  description = "Allow SSH inbound connections"
+  vpc_id      = aws_vpc.my-vpc-efs.id
+
+  ingress {
+    description = "Allowing with in vpc "
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["172.31.0.0/26"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  tags = {
+    Name = "allow_sg-pvt-efs"
+  }
+
 }
