@@ -26,7 +26,7 @@ resource "aws_efs_file_system" "efs" {
 
 # creating vpc my-vpc-efs
 
-resource "aws_vpc" "my_vpc-efs" {
+resource "aws_vpc" "my-vpc-efs" {
   cidr_block = "172.31.0.0/16"
   instance_tenancy = "default"
   enable_dns_hostnames = "true"
