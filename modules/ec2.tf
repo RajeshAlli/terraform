@@ -1,6 +1,6 @@
 # create "ec2 instance"
 
-module "ec2_instance" {
+module "aws_instance"  {
   source  = "terraform-aws-modules/ec2-instance/aws"
 
   name = "module-instance"
