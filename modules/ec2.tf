@@ -1,6 +1,6 @@
 # create "ec2 instance"
 
-module "aws_instance"  {
+module "ec2_instance" {
   source  = "terraform-aws-modules/ec2-instance/aws"
 
   name = "module-instance"
@@ -10,7 +10,7 @@ module "aws_instance"  {
   key_name               = "module-key"
   monitoring             = true
   vpc_security_group_ids = ["aws_security_group.ec2.id"]
-  subnet_id              = "aws_subnet_id.ec2.id"
+  subnet_id              = "10.0.1.0/24"
 
   tags = {
     Terraform   = "true"
