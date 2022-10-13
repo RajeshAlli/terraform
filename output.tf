@@ -1,6 +1,6 @@
 ## outputs in terraform 
  
-output "vpc-id" {
+ vpc-id" {
   value = aws_vpc.my_vpc.id
 }
 
